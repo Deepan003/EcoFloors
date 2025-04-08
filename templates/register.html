@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | EcoFloors</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      background-color: black;
+      animation: fadeIn 0.7s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* 🎥 Background Video */
+    video.bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.45; /* more visible */
+      filter: blur(2px); /* blur only */
+    }
+
+    .register-wrapper {
+      width: 100%;
+      max-width: 300px;
+      padding: 20px 16px;
+      background-color: rgba(0, 0, 0, 0.4); /* transparent but still readable */
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 14px;
+      border: 1px solid #00ffc3;
+      box-shadow: 0 0 12px #00ffc3;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .register-wrapper img.logo {
+      width: 180px; /* ✅ bigger */
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      line-height: 0;
+      padding: 0;
+    }
+
+    .register-wrapper h2 {
+      color: #00ffcc;
+      margin: 0;
+      padding-top: 0;
+      margin-bottom: 16px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #fff;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #00ffcc;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00e6b8;
+      transform: scale(1.03);
+    }
+
+    a {
+      display: block;
+      margin-top: 12px;
+      color: #00ffc3;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    @media (max-width: 400px) {
+      .register-wrapper {
+        margin: 16px;
+        padding: 20px 14px;
+      }
+
+      .register-wrapper img.logo {
+        width: 150px;
+      }
+
+      .register-wrapper h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎥 Background Video -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="/static/bg_register.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 🌱 Register Box -->
+  <div class="register-wrapper">
+    <img src="/static/eco_logo.gif" alt="Eco Logo" class="logo">
+    <h2>🆕 Register New Admin</h2>
+    <form method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+      <input type="text" name="floor" placeholder="Assigned Floor (e.g. First Floor)" required>
+      <button type="submit">Register</button>
+    </form>
+    <a href="/login">⬅ Back to Login</a>
+  </div>
+
+</body>
+</html>

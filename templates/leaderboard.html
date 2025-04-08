@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🏆 Greenest Floor Leaderboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url("/static/bg_leaderboard.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .leaderboard-box {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(25px);
+            padding: 60px;
+            border-radius: 20px;
+            width: 850px;
+            box-shadow: 0 0 30px #00ffcc;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 204, 0.2);
+            animation: slideIn 1s ease forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h2 {
+            color: #b3ffcc;
+            font-size: 38px;
+            margin-bottom: 30px;
+            text-shadow: none;
+            -webkit-text-stroke: 1px #006400;
+            text-stroke: 1px #006400;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.5);
+            text-shadow: none;
+        }
+
+        th {
+            background-color: rgba(0, 255, 204, 0.15);
+            color: #00ffcc;
+        }
+
+        td {
+            color: white;
+        }
+
+        tr:hover {
+            background-color: rgba(0, 255, 204, 0.08);
+        }
+
+        tr:first-child td {
+            font-weight: bold;
+            animation: bounce 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-4px); }
+        }
+
+        .back-btn {
+            margin-top: 40px;
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: transparent;
+            color: #00ffcc;
+            border: 2px solid #00ffcc;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #00ffcc;
+            color: black;
+            transform: scale(1.05);
+            box-shadow: 0 0 12px #00ffcc;
+        }
+
+        .trophy {
+            font-size: 22px;
+            margin-right: 8px;
+        }
+
+        .gold { color: gold; }
+        .silver { color: silver; }
+        .bronze { color: #cd7f32; }
+
+        /* Floating leaf animation */
+        @keyframes float {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .leaf {
+            position: fixed;
+            top: -60px;
+            width: 40px;
+            height: 40px;
+            background: url('/static/leaf.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0;
+            animation: float linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .leaf:nth-child(1)  { left: 5%;  animation-duration: 6s;  animation-delay: 0s; }
+        .leaf:nth-child(2)  { left: 10%; animation-duration: 7s;  animation-delay: 1s; }
+        .leaf:nth-child(3)  { left: 15%; animation-duration: 5s;  animation-delay: 2s; }
+        .leaf:nth-child(4)  { left: 20%; animation-duration: 6s;  animation-delay: 0.5s; }
+        .leaf:nth-child(5)  { left: 25%; animation-duration: 4s;  animation-delay: 1.5s; }
+        .leaf:nth-child(6)  { left: 30%; animation-duration: 6.5s;animation-delay: 0s; }
+        .leaf:nth-child(7)  { left: 35%; animation-duration: 5.5s;animation-delay: 2.5s; }
+        .leaf:nth-child(8)  { left: 40%; animation-duration: 6s;  animation-delay: 1s; }
+        .leaf:nth-child(9)  { left: 45%; animation-duration: 7s;  animation-delay: 0.3s; }
+        .leaf:nth-child(10) { left: 50%; animation-duration: 5s;  animation-delay: 0s; }
+        .leaf:nth-child(11) { left: 55%; animation-duration: 6s;  animation-delay: 0.8s; }
+        .leaf:nth-child(12) { left: 60%; animation-duration: 4.5s;animation-delay: 1.2s; }
+        .leaf:nth-child(13) { left: 65%; animation-duration: 6.2s;animation-delay: 0.2s; }
+        .leaf:nth-child(14) { left: 70%; animation-duration: 5.3s;animation-delay: 0.9s; }
+        .leaf:nth-child(15) { left: 75%; animation-duration: 6.7s;animation-delay: 1.4s; }
+        .leaf:nth-child(16) { left: 80%; animation-duration: 5.8s;animation-delay: 2.1s; }
+        .leaf:nth-child(17) { left: 85%; animation-duration: 7s;  animation-delay: 1.8s; }
+        .leaf:nth-child(18) { left: 90%; animation-duration: 4.7s;animation-delay: 0.6s; }
+        .leaf:nth-child(19) { left: 95%; animation-duration: 5.9s;animation-delay: 0.1s; }
+        .leaf:nth-child(20) { left: 98%; animation-duration: 6.3s;animation-delay: 2.2s; }
+    </style>
+</head>
+<body>
+
+    <!-- 🍃 Falling leaves -->
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+
+    <!-- 🏆 Leaderboard -->
+    <div class="leaderboard-box">
+        <h2>🏆 Greenest Floor Leaderboard</h2>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Floor</th>
+                <th>Avg Green Score</th>
+            </tr>
+            {% for row in scores %}
+            <tr>
+                <td>
+                    {% if loop.index == 1 %}
+                        <span class="trophy gold">🥇</span>
+                    {% elif loop.index == 2 %}
+                        <span class="trophy silver">🥈</span>
+                    {% elif loop.index == 3 %}
+                        <span class="trophy bronze">🥉</span>
+                    {% else %}
+                        {{ loop.index }}
+                    {% endif %}
+                </td>
+                <td>{{ row.floor }}</td>
+                <td>{{ "%.2f"|format(row.score) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="/dashboard" class="back-btn">⬅ Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

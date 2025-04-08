@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        animation: fadeIn 0.7s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+
+<title>Eco Tip of the Day</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: url("/static/bg_tips.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: #006400;
+        animation: fadeIn 0.7s ease-in;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .tip-box {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        padding: 50px;
+        border-radius: 15px;
+        width: 60%;
+        max-width: 650px;
+        box-shadow: 0 0 25px #00ffcc;
+        text-align: center;
+    }
+
+    h2 {
+        color: #006400;
+        margin-bottom: 25px;
+        font-size: 32px;
+    }
+
+    p {
+        font-size: 24px;
+        margin-bottom: 35px;
+        color: #003300;
+    }
+
+    a {
+        display: inline-block;
+        margin: 10px 15px;
+        padding: 12px 24px;
+        color: #006400;
+        border: 2px solid #006400;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.3s ease;
+    }
+
+    a:hover {
+        background-color: #006400;
+        color: white;
+        box-shadow: 0 0 15px #006400;
+        transform: scale(1.05);
+    }
+</style>
+</head>
+<body>
+    <div class="tip-box">
+        <h2>💬 Eco Tip of the Day</h2>
+        <p>{{ tip }}</p>
+        <a href="/eco-tips">🔁 Show Another Tip</a>
+        <a href="/dashboard">⬅ Back to Dashboard</a>
+    </div>
+</body>
+</html>

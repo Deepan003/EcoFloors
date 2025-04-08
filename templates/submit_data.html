@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Data | EcoFloors</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url("/static/bg_submit.jpg") no-repeat center center fixed;
+            background-size: cover;
+            animation: fadeIn 0.7s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 18px;
+            width: 470px;
+            color: white;
+            box-shadow: 0 0 35px rgba(0, 255, 170, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1.5px solid rgba(0, 255, 170, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ffcc;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, 
+                         -1px 1px 0 #000, 1px 1px 0 #000; /* dark outline */
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, 
+                         -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        button {
+            width: 100%;
+            background-color: #00ffcc;
+            color: black;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00e6b8;
+            transform: scale(1.03);
+            box-shadow: 0 0 12px #00ffc8;
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background-color: #00ccb0;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="form-container">
+            <h2>🌿 Submit Today's Sustainability Data</h2>
+            <form method="POST">
+                <label>Energy Used (kWh):</label>
+                <input type="number" name="energy" step="0.01" required>
+
+                <label>Water Used (Litres):</label>
+                <input type="number" name="water" step="0.01" required>
+
+                <label>Heat Level (°C):</label>
+                <input type="number" name="heat" step="0.01" required>
+
+                <label>Waste Produced (kg):</label>
+                <input type="number" name="waste" step="0.01" required>
+
+                <button type="submit">💾 Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

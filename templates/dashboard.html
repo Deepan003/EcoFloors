@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        animation: fadeIn 0.7s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+    <title>EcoFloors Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            animation: fadeIn 0.7s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+            padding: 50px;
+            color: white;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 0 20px #00ffc8;
+            backdrop-filter: blur(10px);
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #00ffcc;
+        }
+
+        a {
+            color: #00ffcc;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        canvas {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-buttons {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            margin: 5px 10px;
+            padding: 10px 20px;
+            background-color: #00ffcc;
+            color: black;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #00e6b8;
+            transform: scale(1.05);
+        }
+
+        .score-info {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 0 15px #00ffc3;
+        }
+
+        .score-info ul {
+            text-align: left;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .score-info li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop class="video-bg">
+        <source src="{{ url_for('static', filename='dashboard_bg.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Content Overlay -->
+    <div class="overlay">
+        <div class="container">
+
+            <!-- Welcome Section -->
+            <h1>Welcome, {{ user }} 🌱</h1>
+            <h3>You're monitoring: <u>{{ floor }}</u></h3>
+
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <a href="/submit-data" class="btn">➕ Submit New Data</a>
+                <a href="/leaderboard" class="btn">🏆 Leaderboard</a>
+                <a href="/report" class="btn">📄 Download PDF</a>
+                <a href="/eco-tips" class="btn">💬 Eco Tips</a>
+                <a href="/logout" class="btn">🚪 Logout</a>
+                <a href="/about" class="btn">👥 About Us</a>
+            </div>
+
+            <!-- Green Score Explanation -->
+            <div class="score-info">
+                <h3>🌿 What is the Green Score?</h3>
+                <p>The Green Score reflects how sustainable your floor's activity is based on resource usage:</p>
+                <ul>
+                    <li>⚡ <strong>Energy</strong> usage — weight: -0.3</li>
+                    <li>💧 <strong>Water</strong> usage — weight: -0.2</li>
+                    <li>🔥 <strong>Heat</strong> generation — weight: -0.1</li>
+                    <li>🗑️ <strong>Waste</strong> produced — weight: -0.4</li>
+                </ul>
+                <p>✅ Lower consumption → Higher Score → More Eco-Friendly! Try scoring above <strong>70</strong> consistently 🌎</p>
+            </div>
+
+            <!-- Sustainability Chart -->
+            <canvas id="ecoChart" width="700" height="400"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart Script -->
+    <script>
+        const labels = {{ labels|tojson }};
+        const energyData = {{ energy_data|tojson }};
+        const waterData = {{ water_data|tojson }};
+        const heatData = {{ heat_data|tojson }};
+        const wasteData = {{ waste_data|tojson }};
+
+        const ctx = document.getElementById('ecoChart').getContext('2d');
+        const ecoChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Energy (kWh)',
+                        data: energyData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.9)'
+                    },
+                    {
+                        label: 'Water (Litres)',
+                        data: waterData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.9)'
+                    },
+                    {
+                        label: 'Heat (°C)',
+                        data: heatData,
+                        backgroundColor: 'rgba(255, 206, 86, 0.9)'
+                    },
+                    {
+                        label: 'Waste (kg)',
+                        data: wasteData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.9)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Sustainability Metrics'
+                    },
+                    legend: {
+                        labels: {
+                            color: 'black'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: 'black' }
+                    },
+                    y: {
+                        ticks: { color: 'black' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
